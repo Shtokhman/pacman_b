@@ -13,3 +13,14 @@ The gameplay is pretty intuitive - the player navigates Pac-Man through a maze w
 * Stage 5: __Final testing__ and code review.
 ## Goal before pass stage 2
 Go from realization stage 0 to stage 3
+## What's done
+All stages are completed.
+In details:
+* Game area - ghost's cage, walls, dots; single stage with different speed in different levels;
+* Behaviour - PacMan, ghosts (chase mode);
+* Score - counting points for different actions;
+* PacMan animation, game area blinking, 'ghost eat mode': ghost changes color, comes back to cage when eaten, comes back to game area; lives; loading; game stages(ready, go); 
+
+## To be done
+Fruits rendering;
+
