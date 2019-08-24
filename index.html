@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="verify-v1" content="nePXAFqA1A7Y7g06uqCymDKgYuAPkE7jQcQfJPUfChk=" />
+	<meta charset="utf-8">
+    <title>Pacman mini Game</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    
+    
+    
+    
+    <script type="text/javascript" src="pacman/js/loader.js"></script>
+    <script type="text/javascript" src="pacman/js/_browser-min.js"></script>
+    <script type="text/javascript" src="pacman/js/_score-min.js"></script>
+    <script type="text/javascript" src="pacman/js/_credit-min.js"></script>
+    <script type="text/javascript" src="pacman/js/_message-min.js"></script>
+    <script type="text/javascript" src="pacman/js/lifes.js"></script>
+    <script type="text/javascript" src="pacman/js/fruits.js"></script>
+    <script type="text/javascript" src="pacman/js/input.js"></script>
+    <script type="text/javascript" src="pacman/js/sound.js"></script>
+    <script type="text/javascript" src="pacman/js/effect.js"></script>
+    <script type="text/javascript" src="pacman/js/maze.js"></script>
+    <script type="text/javascript" src="pacman/js/food.js"></script>
+    <script type="text/javascript" src="pacman/js/ghost.js"></script>
+    <script type="text/javascript" src="pacman/js/_pacman-min.js"></script>
+    <script type="text/javascript" src="pacman/js/game.js"></script>
+    <script type="text/javascript" src="pacman/js/_database-min.js"></script>
+    <script type="text/javascript" src="pacman/js/utils.numbers.js"></script>
+
+    
+    
+    <script type="text/javascript">
+
+    
+    
+    InitBrowser();
+    if ( browser.IsNetscape() )
+    {
+        
+        game = new Game();
+        game.Load();
+    }
+     
+    var totalImages;    
+    function LoadGame()
+    {
+        
+        game = new Game();
+        game.Load();
+        
+        
+        InitDatabase();
+        
+        
+        totalImages = effectManager.GetTotalImages();
+        loader.SetMaxValue( totalImages );
+
+        
+        LoadImages();
+    }
+
+   
+    function LoadImages()
+    {
+        var totalImagesLoaded   = effectManager.GetTotalImagesLoaded();
+       
+        
+       
+        loader.Update( totalImagesLoaded );
+        
+        if ( /*effectManager.AllImagesAreLoaded()*/ totalImagesLoaded >= totalImages )
+        {
+            loader.Update( totalImages );
+            LoadingSounds();
+            return;
+        }
+        
+        
+        setTimeout( 'LoadImages();', 10 );
+    }
+    
+    
+    function LoadingSounds()
+    {
+        var loading = document.getElementById('loading');
+
+        
+        var isEveryThingLoaded = false;
+        try
+        {
+            soundPlayer.Play('startStage');     soundPlayer.Stop('startStage');
+            soundPlayer.Play('eatBiscuit');     soundPlayer.Stop('eatBiscuit');
+            soundPlayer.Play('bigDotEaten');    soundPlayer.Stop('bigDotEaten');
+            soundPlayer.Play('eatBigBiscuit');  soundPlayer.Stop('eatBigBiscuit');
+            soundPlayer.Play('pacmanKilled');   soundPlayer.Stop('pacmanKilled');
+            soundPlayer.Play('ghostEaten');     soundPlayer.Stop('ghostEaten');
+            soundPlayer.Play('extraPacman');    soundPlayer.Stop('extraPacman');
+            
+            isEveryThingLoaded = true;
+        }
+        catch ( e )
+        {
+            isEveryThingLoaded = false;
+        }
+
+        if ( isEveryThingLoaded )
+        {
+            
+            loading.style.visibility = 'hidden';
+
+            
+            loader.Hide();
+            effectManager.Run( 'gameLoading' );
+        }
+        else
+        {
+            setTimeout( 'LoadingSounds()', 15 );
+        }
+    }
+   
+    </script>
+</head>
+
+<body onload="javascript: LoadGame();">
+    <table border="0" cellSpacing="0" cellPadding="0" style="margin-left: 100px">
+        <tr>
+            <td valign="top">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="width: 464px; height: 606px; border-color:Yellow; vertical-align:top;">
+                            <div id="content" style="position: relative; top: 0px; left: 0px;">
+                                <div id="divLoading" style="position: absolute; top: 0px; left: 0px; z-index: 998; width: 464px; height: 604px; background-color: Transparent;">
+                                    <img id="loading" src="pacman/common/loading.jpg" style="position: absolute; top: 0;left: 0; z-index: 950;" />
+                                </div>
+                                <div id="divLoader" style="position: absolute; top: 356px; left: 64px; z-index: 999; width: 360px; height: 30px; background-color: Transparent;">
+                                    <img id="loaderBorder" src="pacman/common/loaderborder.jpg" style="position: absolute; top: 0px;left: 0px; z-index: 950;" border="0px"/>
+                                    <img id="loaderPercentage" src="pacman/common/loaderpercentage.jpg" style="position: absolute; top: 2px;left: 2px; z-index: 950;" width="0px" height="23px" border="0px"/>
+                                </div>
+                                <div id="divFood" style="position: absolute; top: 0px; left: 0px; z-index: 910; width: 32px;height: 32px; background-color: Transparent;">
+                                </div>
+                                <div id="divScore1" style="position: absolute; top: 28px; left: 16px; z-index: 910;width: 120px; height: 16px; background-color: Transparent;">
+                                </div>
+                                <div id="divScore2" style="position: absolute; top: 28px; left: 328px; z-index: 910;width: 120px; height: 16px; background-color: Transparent;">
+                                </div>
+                                <div id="divHighScore" style="position: absolute; top: 28px; left: 172px; z-index: 910;width: 120px; height: 16px; background-color: Transparent;">
+                                </div>
+                                <div id="divLifes1" style="position: absolute; top: 568px; left: 32px; z-index: 910;width: 160px; height: 32px; background-color: Transparent;">
+                                </div>
+                                <div id="divLifes2" style="position: absolute; top: 568px; left: 32px; z-index: 910;width: 160px; height: 32px; background-color: blue; visibility: hidden;">
+                                </div>
+                                <div id="divFruits" style="position: absolute; top: 568px; left: 400px; z-index: 910;width: 32px; height: 32px; background-color: Transparent;">
+                                </div>
+                                <div id="divMessages" style="position: absolute; top: 0px; left: 0px; z-index: 910;width: 464px; height: 604px; background-color: Transparent;">
+                                </div>
+                                <div id="divInputScreen" style="position: absolute; top: 0px; left: 0px; z-index: 910;width: 464px; height: 604px; background-color: Transparent;">
+                                </div>
+                                
+                                <div id="divCredits" style="position: absolute; top: 578px; left: 142px; z-index: 920;width: 120px; height: 17px; background-color: Transparent;">
+                                </div>
+                                <table cellpadding="0" cellspacing="0" border="0" style="top: 0; left: 0; position: absolute;">
+                                    <tr>
+                                        <td>
+                                            <img src="pacman/common/score.jpg" border="0" height="56" /><br>
+                                            <img src="pacman/common/maze9.jpg" border="0" height="512" /><br>
+                                            <img src="pacman/common/livesfruit.jpg" border="0" height="36" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <img src="pacman/common/instruction.jpg" width="600px" height="400px" border="0" alt="" style="margin-left:100px; margin-top: -85px"/></div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

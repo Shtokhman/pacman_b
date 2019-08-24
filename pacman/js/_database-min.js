@@ -1,0 +1,2 @@
+
+var database;function InitDatabase(){database=new Database();database.LoadHighScore()};function Database(){this.dummy=0};Database.prototype.LoadHighScore=function(){var oXHR=zXmlHttp.createRequest();oXHR.open('get','ajax/ajaxrequest.php?action=rs');oXHR.onreadystatechange=function(){if(oXHR.readyState==4){var result=0;if(oXHR.status==200)result=oXHR.responseText;result=IsNumeric(result)?result:0;game.SetHighScore(result)}};oXHR.send(null)};
